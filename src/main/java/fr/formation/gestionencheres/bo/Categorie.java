@@ -1,8 +1,12 @@
 package fr.formation.gestionencheres.bo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Categorie {
 	private Integer noCategorie;
 	private String libelle;
+	private List<ArticleEnVente> lstArticlesEnVente = new ArrayList<>();
 
 	public Categorie() {
 		super();
@@ -35,9 +39,20 @@ public class Categorie {
 		this.libelle = libelle;
 	}
 
+	public List<ArticleEnVente> getlstArticlesEnVente() {
+		return lstArticlesEnVente;
+	}
+
+	public void setlstArticlesEnVente(List<ArticleEnVente> lstArticlesEnVente) {
+		this.lstArticlesEnVente = lstArticlesEnVente;
+	}
+
 	@Override
 	public String toString() {
-		return "Categorie [noCategorie=" + noCategorie + ", libelle=" + libelle + "]";
+		return "Categorie [noCategorie=" + noCategorie + ", libelle=" + libelle + ", lstArticlesEnVente="
+				+ lstArticlesEnVente + "]";
 	}
+
+	
 
 }

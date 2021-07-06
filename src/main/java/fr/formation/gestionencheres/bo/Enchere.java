@@ -10,18 +10,18 @@ public class Enchere {
 		super();
 	}
 
-	public Enchere(LocalTime dateEnchère, Integer montant_enchere) {
+	public Enchere(LocalTime dateEnchere, Integer montant_enchere) {
 		super();
-		this.dateEnchere = dateEnchère;
+		this.dateEnchere = dateEnchere;
 		this.montant_enchere = montant_enchere;
 	}
 
-	public LocalTime getDateEnchère() {
+	public LocalTime getDateEnchere() {
 		return dateEnchere;
 	}
 
-	public void setDateEnchère(LocalTime dateEnchère) {
-		this.dateEnchere = dateEnchère;
+	public void setDateEnchere(LocalTime dateEnchere) {
+		this.dateEnchere = dateEnchere;
 	}
 
 	public Integer getMontant_enchere() {

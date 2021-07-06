@@ -19,7 +19,7 @@ private static DataSource dataSource;
 		Context context;
 		try {
 			context = new InitialContext();
-			ConnectionProvider.dataSource = (DataSource)context.lookup("java:comp/env/jdbc/CourseAPied");
+			ConnectionProvider.dataSource = (DataSource)context.lookup("java:comp/env/jdbc/Encheres");
 		} catch (NamingException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Impossible d'accéder à la base de données");

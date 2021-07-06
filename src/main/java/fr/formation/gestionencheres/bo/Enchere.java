@@ -3,7 +3,7 @@ package fr.formation.gestionencheres.bo;
 import java.time.LocalTime;
 
 public class Enchere {
-	private LocalTime dateEnchère;
+	private LocalTime dateEnchere;
 	private Integer montant_enchere;
 
 	public Enchere() {
@@ -12,16 +12,16 @@ public class Enchere {
 
 	public Enchere(LocalTime dateEnchère, Integer montant_enchere) {
 		super();
-		this.dateEnchère = dateEnchère;
+		this.dateEnchere = dateEnchère;
 		this.montant_enchere = montant_enchere;
 	}
 
 	public LocalTime getDateEnchère() {
-		return dateEnchère;
+		return dateEnchere;
 	}
 
 	public void setDateEnchère(LocalTime dateEnchère) {
-		this.dateEnchère = dateEnchère;
+		this.dateEnchere = dateEnchère;
 	}
 
 	public Integer getMontant_enchere() {
@@ -34,7 +34,7 @@ public class Enchere {
 
 	@Override
 	public String toString() {
-		return "Enchere [dateEnchère=" + dateEnchère + ", montant_enchere=" + montant_enchere + "]";
+		return "Enchere [dateEnchère=" + dateEnchere + ", montant_enchere=" + montant_enchere + "]";
 	}
 
 }

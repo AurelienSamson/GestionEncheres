@@ -1,4 +1,8 @@
-package fr.formation.gestionencheres.bo;
+package fr.formation.gestionencheres.bll;
+
+import fr.formation.gestionencheres.bo.ArticleEnVente;
+import fr.formation.gestionencheres.bo.Categorie;
+import fr.formation.gestionencheres.bo.Utilisateur;
 
 public interface Administrateur {
 	public void desactiverCompteUtilisateur(Utilisateur user);

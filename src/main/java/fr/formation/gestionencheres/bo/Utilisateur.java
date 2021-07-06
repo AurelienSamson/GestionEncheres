@@ -3,6 +3,10 @@ package fr.formation.gestionencheres.bo;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.formation.gestionencheres.bll.Acquereur;
+import fr.formation.gestionencheres.bll.Administrateur;
+import fr.formation.gestionencheres.bll.Vendeur;
+
 public class Utilisateur implements Administrateur, Acquereur, Vendeur{
 	private Integer noUtilisateur;
 	private String pseudo;

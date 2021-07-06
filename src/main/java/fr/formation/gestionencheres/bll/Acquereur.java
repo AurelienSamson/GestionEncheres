@@ -1,4 +1,6 @@
-package fr.formation.gestionencheres.bo;
+package fr.formation.gestionencheres.bll;
+
+import fr.formation.gestionencheres.bo.ArticleEnVente;
 
 public interface Acquereur {
 	public void encherir(Integer credit);

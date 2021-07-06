@@ -1,6 +1,8 @@
-package fr.formation.gestionencheres.bo;
+package fr.formation.gestionencheres.bll;
 
 import java.util.List;
+
+import fr.formation.gestionencheres.bo.ArticleEnVente;
 
 public interface Vendeur {
 	public List<ArticleEnVente> getArticlesEnVente();

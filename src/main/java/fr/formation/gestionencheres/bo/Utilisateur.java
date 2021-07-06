@@ -1,6 +1,9 @@
 package fr.formation.gestionencheres.bo;
 
-public class Utilisateur {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Utilisateur implements Administrateur, Acquereur, Vendeur{
 	private Integer noUtilisateur;
 	private String pseudo;
 	private String nom;
@@ -13,6 +16,8 @@ public class Utilisateur {
 	private String motDePasse;
 	private Integer credit;
 	private int administrateur;
+	private List<ArticleEnVente> lstArticlesEnVente = new ArrayList<>();
+	private List<Enchere> lstEncheres = new ArrayList<>();
 
 	public Utilisateur() {
 		super();
@@ -147,12 +152,88 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 
+	public List<ArticleEnVente> getVente() {
+		return lstArticlesEnVente;
+	}
+
+	public void setVente(List<ArticleEnVente> vente) {
+		this.lstArticlesEnVente = vente;
+	}
+
+	public List<Enchere> getLstEncheres() {
+		return lstEncheres;
+	}
+
+	public void setLstEncheres(List<Enchere> lstEncheres) {
+		this.lstEncheres = lstEncheres;
+	}
+
 	@Override
 	public String toString() {
 		return "Utilisateur [noUtilisateur=" + noUtilisateur + ", pseudo=" + pseudo + ", nom=" + nom + ", prenom="
 				+ prenom + ", email=" + email + ", telephone=" + telephone + ", rue=" + rue + ", codePostal="
 				+ codePostal + ", ville=" + ville + ", motDePasse=" + motDePasse + ", credit=" + credit
-				+ ", administrateur=" + administrateur + "]";
+				+ ", administrateur=" + administrateur + ", lstArticlesEnVente=" + lstArticlesEnVente + ", lstEncheres=" + lstEncheres + "]";
+	}
+
+	@Override
+	public void desactiverCompteUtilisateur(Utilisateur user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void supprimerCompte(Utilisateur user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changerLibelleCategorie(Categorie categorie) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void ajouterArticleCategorie(Categorie categorie, ArticleEnVente article) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void supprimerArticleCategorie(Categorie categorie, ArticleEnVente article) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<ArticleEnVente> getArticlesEnVente() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void vendreArticle(ArticleEnVente article) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void annulerVenteArticle(ArticleEnVente article) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void encherir(Integer credit) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void acheterArticle(ArticleEnVente article) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

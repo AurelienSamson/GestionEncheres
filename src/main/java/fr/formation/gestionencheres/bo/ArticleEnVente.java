@@ -1,8 +1,10 @@
 package fr.formation.gestionencheres.bo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ArticleVendu {
+public class ArticleEnVente {
 	private Integer noArticle;
 	private String nom;
 	private String Article;
@@ -12,12 +14,16 @@ public class ArticleVendu {
 	private Integer miseAPrix;
 	private Integer prixVente;
 	private Integer etatVente;
+	private Utilisateur user;
+	private List<Enchere> lstEncheres = new ArrayList<>();
+	private List<Retrait> lstRetrait = new ArrayList<>();
+	private Categorie categorie;
 
-	public ArticleVendu() {
+	public ArticleEnVente() {
 		super();
 	}
 
-	public ArticleVendu(String nom, String article, String description, LocalDate dateDebutEncheres,
+	public ArticleEnVente(String nom, String article, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, Integer miseAPrix, Integer prixVente, Integer etatVente) {
 		super();
 		this.nom = nom;
@@ -30,7 +36,7 @@ public class ArticleVendu {
 		this.etatVente = etatVente;
 	}
 
-	public ArticleVendu(Integer noArticle, String nom, String article, String description, LocalDate dateDebutEncheres,
+	public ArticleEnVente(Integer noArticle, String nom, String article, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, Integer miseAPrix, Integer prixVente, Integer etatVente) {
 		super();
 		this.noArticle = noArticle;
@@ -116,11 +122,45 @@ public class ArticleVendu {
 		this.etatVente = etatVente;
 	}
 
+	public Utilisateur getUser() {
+		return user;
+	}
+
+	public void setUser(Utilisateur user) {
+		this.user = user;
+	}
+
+	public List<Enchere> getLstEncheres() {
+		return lstEncheres;
+	}
+
+	public void setLstEncheres(List<Enchere> lstEncheres) {
+		this.lstEncheres = lstEncheres;
+	}
+
+	public List<Retrait> getLstRetrait() {
+		return lstRetrait;
+	}
+
+	public void setLstRetrait(List<Retrait> lstRetrait) {
+		this.lstRetrait = lstRetrait;
+	}
+
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+
 	@Override
 	public String toString() {
-		return "ArticleVendu [noArticle=" + noArticle + ", nom=" + nom + ", Article=" + Article + ", description="
+		return "ArticleEnVente [noArticle=" + noArticle + ", nom=" + nom + ", Article=" + Article + ", description="
 				+ description + ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres
-				+ ", miseAPrix=" + miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + "]";
+				+ ", miseAPrix=" + miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", user="
+				+ user.getPrenom() + ", lstEncheres=" + lstEncheres + ", lstRetrait=" + lstRetrait + ", categorie="
+				+ categorie.getLibelle() + "]";
 	}
 
 }

@@ -5,6 +5,8 @@ import java.time.LocalTime;
 public class Enchere {
 	private LocalTime dateEnchere;
 	private Integer montant_enchere;
+	private Utilisateur user;
+	private ArticleEnVente article;
 
 	public Enchere() {
 		super();
@@ -32,9 +34,26 @@ public class Enchere {
 		this.montant_enchere = montant_enchere;
 	}
 
+	public Utilisateur getUser() {
+		return user;
+	}
+
+	public void setUser(Utilisateur user) {
+		this.user = user;
+	}
+
+	public ArticleEnVente getArticle() {
+		return article;
+	}
+
+	public void setArticle(ArticleEnVente article) {
+		this.article = article;
+	}
+
 	@Override
 	public String toString() {
-		return "Enchere [dateEnchère=" + dateEnchere + ", montant_enchere=" + montant_enchere + "]";
+		return "Enchere [dateEnchere=" + dateEnchere + ", montant_enchere=" + montant_enchere + ", user="
+				+ user.getPrenom() + ", article=" + article.getNom() + "]";
 	}
 
 }

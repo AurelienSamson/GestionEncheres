@@ -7,7 +7,6 @@ import java.util.List;
 public class ArticleEnVente {
 	private Integer noArticle;
 	private String nom;
-	private String Article;
 	private String description;
 	private LocalDate dateDebutEncheres;
 	private LocalDate dateFinEncheres;
@@ -23,25 +22,35 @@ public class ArticleEnVente {
 		super();
 	}
 
-	public ArticleEnVente(String nom, String article, String description, LocalDate dateDebutEncheres,
-			LocalDate dateFinEncheres, Integer miseAPrix, Integer prixVente, Integer etatVente) {
+	public ArticleEnVente(String nom, String description, LocalDate dateDebutEncheres,
+			LocalDate dateFinEncheres, Integer miseAPrix, Integer prixVente) {
 		super();
 		this.nom = nom;
-		Article = article;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
-		this.etatVente = etatVente;
+	}
+	
+	public ArticleEnVente(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			Integer miseAPrix, Integer prixVente, Utilisateur user, Categorie categorie) {
+		super();
+		this.nom = nom;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.user = user;
+		this.categorie = categorie;
 	}
 
-	public ArticleEnVente(Integer noArticle, String nom, String article, String description, LocalDate dateDebutEncheres,
+	public ArticleEnVente(Integer noArticle, String nom, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, Integer miseAPrix, Integer prixVente, Integer etatVente) {
 		super();
 		this.noArticle = noArticle;
 		this.nom = nom;
-		Article = article;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.dateFinEncheres = dateFinEncheres;
@@ -64,14 +73,6 @@ public class ArticleEnVente {
 
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-
-	public String getArticle() {
-		return Article;
-	}
-
-	public void setArticle(String article) {
-		Article = article;
 	}
 
 	public String getDescription() {
@@ -156,7 +157,7 @@ public class ArticleEnVente {
 
 	@Override
 	public String toString() {
-		return "ArticleEnVente [noArticle=" + noArticle + ", nom=" + nom + ", Article=" + Article + ", description="
+		return "ArticleEnVente [noArticle=" + noArticle + ", nom=" + nom +  ", description="
 				+ description + ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres
 				+ ", miseAPrix=" + miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", user="
 				+ user.getPrenom() + ", lstEncheres=" + lstEncheres + ", lstRetrait=" + lstRetrait + ", categorie="

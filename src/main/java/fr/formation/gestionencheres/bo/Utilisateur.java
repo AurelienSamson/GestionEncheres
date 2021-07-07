@@ -2,12 +2,7 @@ package fr.formation.gestionencheres.bo;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import fr.formation.gestionencheres.bll.Acquereur;
-import fr.formation.gestionencheres.bll.Administrateur;
-import fr.formation.gestionencheres.bll.Vendeur;
-
-public class Utilisateur implements Administrateur, Acquereur, Vendeur{
+public class Utilisateur {
 	private Integer noUtilisateur;
 	private String pseudo;
 	private String nom;
@@ -180,64 +175,5 @@ public class Utilisateur implements Administrateur, Acquereur, Vendeur{
 				+ ", administrateur=" + administrateur + ", lstArticlesEnVente=" + lstArticlesEnVente + ", lstEncheres=" + lstEncheres + "]";
 	}
 
-	@Override
-	public void desactiverCompteUtilisateur(Utilisateur user) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void supprimerCompte(Utilisateur user) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void changerLibelleCategorie(Categorie categorie) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void ajouterArticleCategorie(Categorie categorie, ArticleEnVente article) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void supprimerArticleCategorie(Categorie categorie, ArticleEnVente article) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<ArticleEnVente> getArticlesEnVente() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void vendreArticle(ArticleEnVente article) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void annulerVenteArticle(ArticleEnVente article) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void encherir(Integer credit) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void acheterArticle(ArticleEnVente article) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 }

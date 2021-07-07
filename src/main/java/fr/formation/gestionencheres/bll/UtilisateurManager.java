@@ -11,11 +11,13 @@ public interface UtilisateurManager {
 
 	public Utilisateur getUtilisateurByNoUtilisateur(Integer noUtilisateur);
 
-	public Utilisateur getutilisateurByPseudo(String pseuddo);
+	public Utilisateur getUtilisateurByPseudo(String pseuddo);
 	
+	// give the list (must return only name of users) of all users that currently have an auction
+	// so that we can display the sellers names on the homepage
 	public HashMap<Integer , String> getNoArticlePseudoUtilisateurWithCurrentEnchere();
 	
-	public List<Utilisateur> getAllUtilisateur();
+	public List<Utilisateur> getAllUtilisateurs();
 	
 	public void updateUtilisateur(Utilisateur user);
 	
@@ -23,6 +25,6 @@ public interface UtilisateurManager {
 	
 	public void deleteUtilisateur(Utilisateur user);
 	
-	public BllException validateutilisateur(Utilisateur user);
+	public BllException validateUtilisateur(Utilisateur user);
 
 }

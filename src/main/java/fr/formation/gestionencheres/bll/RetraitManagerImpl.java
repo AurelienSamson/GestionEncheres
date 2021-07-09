@@ -3,6 +3,9 @@ package fr.formation.gestionencheres.bll;
 import java.util.List;
 
 import fr.formation.gestionencheres.bo.Retrait;
+import fr.formation.gestionencheres.dal.DALException;
+import fr.formation.gestionencheres.dal.RetraitDAO;
+import fr.formation.gestionencheres.dal.RetraitDAOFact;
 
 public class RetraitManagerImpl implements RetraitManager {
 

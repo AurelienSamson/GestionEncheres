@@ -1,12 +1,13 @@
-package fr.formation.gestionencheres.bll;
+package fr.formation.gestionencheres.dal;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BllException extends Exception {
+public class DALException extends Exception {
+	
 	private List<Integer> lstErrorCodes;
 	
-	public BllException() {
+	public DALException() {
 		this.lstErrorCodes = new ArrayList<>();
 	}
 	
@@ -37,4 +38,5 @@ public class BllException extends Exception {
 	public List<Integer> getListErrorCodes(){
 		return this.lstErrorCodes;
 	}
+
 }

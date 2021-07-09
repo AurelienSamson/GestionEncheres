@@ -1,7 +1,8 @@
-package fr.formation.gestionencheres.bll;
+package fr.formation.gestionencheres.dal;
 
 import java.util.List;
 
+import fr.formation.gestionencheres.bll.BllException;
 import fr.formation.gestionencheres.bo.ArticleEnVente;
 import fr.formation.gestionencheres.bo.Categorie;
 import fr.formation.gestionencheres.bo.Utilisateur;

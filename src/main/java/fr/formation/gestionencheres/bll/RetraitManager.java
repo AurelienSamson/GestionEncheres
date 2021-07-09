@@ -3,6 +3,7 @@ package fr.formation.gestionencheres.bll;
 import java.util.List;
 
 import fr.formation.gestionencheres.bo.Retrait;
+import fr.formation.gestionencheres.dal.DALException;
 
 public interface RetraitManager {
 	

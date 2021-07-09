@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import fr.formation.gestionencheres.bo.Utilisateur;
+import fr.formation.gestionencheres.dal.DALException;
+import fr.formation.gestionencheres.dal.UtilisateurDAO;
+import fr.formation.gestionencheres.dal.UtilisateurDAOFact;
 
 public class UtilisateurManagerImpl implements UtilisateurManager {
 

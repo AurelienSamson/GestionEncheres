@@ -1,4 +1,4 @@
-package fr.formation.gestionencheres.bll;
+package fr.formation.gestionencheres.dal;
 
 import java.util.HashMap;
 import java.util.List;

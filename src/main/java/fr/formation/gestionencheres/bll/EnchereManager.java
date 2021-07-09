@@ -6,6 +6,7 @@ import java.util.List;
 import fr.formation.gestionencheres.bo.ArticleEnVente;
 import fr.formation.gestionencheres.bo.Enchere;
 import fr.formation.gestionencheres.bo.Utilisateur;
+import fr.formation.gestionencheres.dal.DALException;
 
 public interface EnchereManager {
 
@@ -17,11 +18,11 @@ public interface EnchereManager {
 	
 	public List<Enchere> getAllCurrentEncheresByNomArticle() throws DALException;
 	
-	public List<Enchere> getAllEncheresWhereUtilisateurSetOffer();
+	public List<Enchere> getAllEncheresWhereUtilisateurSetOffer() throws DALException;
 	
-	public List<ArticleEnVente> getAllArticlesAcquireByUtilisateur(Utilisateur user);
+	public List<ArticleEnVente> getAllArticlesAcquireByUtilisateur(Utilisateur user) throws DALException;
 	
-	public HashMap<Integer, Integer> getAmountAndNoUtilisateurOfBestOfferFromArticleEnVente(ArticleEnVente article);
+	public HashMap<Integer, Integer> getAmountAndNoUtilisateurOfBestOfferFromArticleEnVente(ArticleEnVente article) throws DALException;
 	
-	public List<Integer> getAllArticlesEnVenteByUtilisateurAndEtatVente(Utilisateur user, String etatVente) throws DALException;
+	//public List<ArticleEnVente> getArticlesEnVenteByVendeurAndEtatVente(Utilisateur user, String etatVente) throws DALException;
 }

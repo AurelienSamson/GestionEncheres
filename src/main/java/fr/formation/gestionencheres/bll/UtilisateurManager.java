@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import fr.formation.gestionencheres.bo.Utilisateur;
+import fr.formation.gestionencheres.dal.DALException;
 
 public interface UtilisateurManager {
 

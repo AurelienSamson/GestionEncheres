@@ -5,6 +5,7 @@ import java.util.List;
 import fr.formation.gestionencheres.bo.ArticleEnVente;
 import fr.formation.gestionencheres.bo.Categorie;
 import fr.formation.gestionencheres.bo.Utilisateur;
+import fr.formation.gestionencheres.dal.DALException;
 
 public interface ArticleEnVenteManager {
 	

@@ -3,6 +3,9 @@ package fr.formation.gestionencheres.bll;
 import java.util.List;
 
 import fr.formation.gestionencheres.bo.Categorie;
+import fr.formation.gestionencheres.dal.CategorieDAO;
+import fr.formation.gestionencheres.dal.CategorieDAOFact;
+import fr.formation.gestionencheres.dal.DALException;
 
 public class CategorieManagerImpl implements CategorieManager {
 

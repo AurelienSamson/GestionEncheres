@@ -1,4 +1,4 @@
-package fr.formation.gestionencheres.bll;
+package fr.formation.gestionencheres.dal;
 
 public class CategorieDAOFact {
 	private static CategorieDAO instance = new CategorieDAOImpl();

@@ -12,7 +12,7 @@ public class ArticleEnVente {
 	private LocalDate dateFinEncheres;
 	private Integer miseAPrix;
 	private Integer prixVente;
-	private Integer etatVente;
+	private String etatVente;
 	private Utilisateur user;
 	private List<Enchere> lstEncheres = new ArrayList<>();
 	private List<Retrait> lstRetrait = new ArrayList<>();
@@ -47,7 +47,7 @@ public class ArticleEnVente {
 	}
 
 	public ArticleEnVente(Integer noArticle, String nom, String description, LocalDate dateDebutEncheres,
-			LocalDate dateFinEncheres, Integer miseAPrix, Integer prixVente, Integer etatVente) {
+			LocalDate dateFinEncheres, Integer miseAPrix, Integer prixVente, String etatVente) {
 		super();
 		this.noArticle = noArticle;
 		this.nom = nom;
@@ -115,11 +115,11 @@ public class ArticleEnVente {
 		this.prixVente = prixVente;
 	}
 
-	public Integer getEtatVente() {
+	public String getEtatVente() {
 		return etatVente;
 	}
 
-	public void setEtatVente(Integer etatVente) {
+	public void setEtatVente(String etatVente) {
 		this.etatVente = etatVente;
 	}
 

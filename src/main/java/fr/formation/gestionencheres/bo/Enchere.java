@@ -1,9 +1,9 @@
 package fr.formation.gestionencheres.bo;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Enchere {
-	private LocalDate dateEnchere;
+	private LocalDateTime dateEnchere;
 	private Integer montant_enchere;
 	private Utilisateur user;
 	private ArticleEnVente article;
@@ -12,13 +12,13 @@ public class Enchere {
 		super();
 	}
 
-	public Enchere(LocalDate dateEnchere, Integer montant_enchere) {
+	public Enchere(LocalDateTime dateEnchere, Integer montant_enchere) {
 		super();
 		this.dateEnchere = dateEnchere;
 		this.montant_enchere = montant_enchere;
 	}
 
-	public Enchere(LocalDate dateEnchere, Integer montant_enchere, Utilisateur user, ArticleEnVente article) {
+	public Enchere(LocalDateTime dateEnchere, Integer montant_enchere, Utilisateur user, ArticleEnVente article) {
 		super();
 		this.dateEnchere = dateEnchere;
 		this.montant_enchere = montant_enchere;
@@ -26,11 +26,11 @@ public class Enchere {
 		this.article = article;
 	}
 
-	public LocalDate getDateEnchere() {
+	public LocalDateTime getDateEnchere() {
 		return dateEnchere;
 	}
 
-	public void setDateEnchere(LocalDate dateEnchere) {
+	public void setDateEnchere(LocalDateTime dateEnchere) {
 		this.dateEnchere = dateEnchere;
 	}
 

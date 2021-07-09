@@ -1,6 +1,5 @@
 package fr.formation.gestionencheres.dal;
 
-import java.util.HashMap;
 import java.util.List;
 
 import fr.formation.gestionencheres.bo.ArticleEnVente;
@@ -16,12 +15,12 @@ public interface EnchereDAO {
 	public void insertRetraits(Retrait retrait);
 	public void insertEnchere(Enchere enchere);
 	public void updateArticleEnVente(ArticleEnVente article);
-	public void updateArticleCurrentPrice(Integer id);
-	public void updateRetrait(Retrait retrait);
+	public void updateArticleCurrentPrice(ArticleEnVente article, Integer newPrice);
+	public void updateRetrait(Retrait retrait, Integer id);
 	public void updateUtilisateur(Utilisateur user);
-	public void updateCredit(Integer noUtilisateur, Integer newCredit);
+	public void updateCredit(Utilisateur user, Integer newCredit);
 	public void deleteArticleEnVente(ArticleEnVente article);
-	public void deleteRetrait(Retrait retrait);
+	public void deleteRetrait(Integer id);
 	public void deleteUtilisateur(Utilisateur user);
 	
 	public Utilisateur getUserByID(Integer id);
@@ -38,18 +37,17 @@ public interface EnchereDAO {
 	public List<Retrait> getRetraits();
 	
 	public List<Enchere> getAllCurrentEncheres();
-	public List<Enchere> getAllCurrentEncheresOrderedByCategorie();
+	//public List<Enchere> getAllCurrentEncheresOrderedByCategorie();
 	public List<Enchere> getAllCurrentEncheresOrderedByNomArticle();
-	public List<Enchere> getAllEncheresWhereUtilisateurSetOffer();
+	public List<ArticleEnVente> getAllArticlesEnVenteWhereUtilisateurSetOffer();
 	
-	public List<ArticleEnVente> getArticlesEnVenteByEtatVente(ArticleEnVente article); //TODO envoyer un mail au client pour ajouter etatVente dans la bdd
-	public List<ArticleEnVente> getArticlesEnVenteByVendeurAndEtatVente(Utilisateur user, ArticleEnVente article);//TODO 
+	public List<ArticleEnVente> getArticlesEnVenteByEtatVente(String etat);
+	public List<ArticleEnVente> getArticlesEnVenteByVendeurAndEtatVente(Integer id, String etat);
 	
-	public List<ArticleEnVente> getArticlesAcquireByUtilisateur(Utilisateur user);
-	public List<ArticleEnVente> getArticlesAndEtatVenteByUtilisateur(Utilisateur user, ArticleEnVente article);//TODO 
+	public List<ArticleEnVente> getArticlesAcquireByUtilisateur(Integer id);
 	public List<ArticleEnVente> getArticleEnVenteFromCategorie(Categorie categorie);
-	public List<ArticleEnVente> getArticleEnVenteOrderedByNom(ArticleEnVente article);
-	public HashMap<ArticleEnVente, Integer> getAmountAndUtilisateurOfBestOfferFromArticleEnVente(ArticleEnVente article);
-	public HashMap<Integer , String> getArticlePseudoUtilisateurWithCurrentEnchere();
+	public List<ArticleEnVente> getArticleEnVenteOrderedByNom();
+	public Enchere getAmountAndUtilisateurOfBestOfferFromArticleEnVente(ArticleEnVente article);
+	//public HashMap<Integer , String> getArticlePseudoUtilisateurWithCurrentEnchere();
 	
 }

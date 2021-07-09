@@ -6,8 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import fr.formation.gestionencheres.bo.ArticleEnVente;
@@ -17,7 +17,7 @@ import fr.formation.gestionencheres.bo.Retrait;
 import fr.formation.gestionencheres.bo.Utilisateur;
 
 public class EnchereDAOImpl implements EnchereDAO {
-	private final String SQL_INSERT_ARTICLE_VENDU = "INSERT INTO ARTICLES_VENDUS VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+	private final String SQL_INSERT_ARTICLE_VENDU = "INSERT INTO ARTICLES_VENDUS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	private final String SQL_INSERT_CATEGORIE = "INSERT INTO CATEGORIES VALUES (?);";
 	private final String SQL_INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	private final String SQL_INSERT_RETRAIT = "INSERT INTO RETRAITS VALUES (?, ?, ?, ?);";
@@ -35,6 +35,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 	
 	private final String SQL_SELECT_ARTICLE_VENDU = "SELECT * FROM ARTICLES_VENDUS;";
 	private final String SQL_SELECT_ARTICLES_VENDUS_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article = ?;";
+	private final String SQL_SELECT_ARTICLES_VENDUS_WHERE_IS_OFFER = "SELECT * FROM ARTICLES_VENDUS WHERE prix_vente IS NOT NULL ;";
 	private final String SQL_SELECT_ENCHERE = "SELECT * FROM ENCHERES;";
 	private final String SQL_SELECT_RETRAIT = "SELECT * FROM RETRAITS;";
 	private final String SQL_SELECT_RETRAIT_ID = "SELECT * FROM RETRAITS WHERE no_article = ?;";
@@ -48,7 +49,9 @@ public class EnchereDAOImpl implements EnchereDAO {
 	private final String SQL_SELECT_ARTICLES_VENDUS_BY_CATEGORIE = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente FROM ARTICLES_VENDUS WHERE no_categorie = ?;";
 	private final String SQL_SELECT_ARTICLES_VENDUS_BY_CATEGORIE_INNER_JOIN = "SELECT c.libelle, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente FROM ARTICLES_VENDUS av INNER JOIN CATEGORIES c ON av.no_categorie = c.no_categorie ORDER BY c.libelle ASC;";
 	private final String SQL_SELECT_ARTICLES_VENDUS_ORDER_BY_NOM_ARTICLE = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente FROM ARTICLES_VENDUS ORDER BY nom_article ASC;";
-	private final String SQL_SELECT_ENCHERE_PLUS_HAUTE_ET_UTILISATEUR = "SELECT montant_enchere, e.no_utilisateur FROM ENCHERES INNER JOIN UTILISATEURS u ON e.no_utilisateur = u.no_utilisateur ORDER BY montant_enchere DESC;";
+	private final String SQL_SELECT_ENCHERE_PLUS_HAUTE_ET_UTILISATEUR = "SELECT TOP 1 e.date_enchere, e.montant_enchere, u.pseudo, u.nom, u.prenom, u.email, u.telephone, u.rue, u.code_postal, u.ville, u.mot_de_passe, u.credit, u.administrateur FROM ARTICLES_VENDUS av INNER JOIN ENCHERES e ON av.no_utilisateur = e.no_utilisateur INNER JOIN UTILISATEURS u ON e.no_utilisateur = u.no_utilisateur ORDER BY montant_enchere DESC;";
+	private final String SQL_SELECT_ARTICLES_VENDUS_BY_ETAT_VENTE = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, etat_vente FROM ARTICLES_VENDUS WHERE etat_vente = ?;";
+	private final String SQL_SELECT_ARTICLES_VENDUS_BY_ETAT_VENTE_AND_VENDEUR = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, etat_vente FROM ARTICLES_VENDUS WHERE etat_vente = ? and no_utilisateur = ?;";
 	
 	private int idRetrait = 1;
 
@@ -63,8 +66,9 @@ public class EnchereDAOImpl implements EnchereDAO {
 			stm.setDate(4, Date.valueOf(article.getDateFinEncheres()));
 			stm.setInt(5, article.getMiseAPrix());
 			stm.setInt(6, article.getPrixVente());
-			stm.setInt(7, article.getUser().getNoUtilisateur());
-			stm.setInt(8, article.getCategorie().getNoCategorie());
+			stm.setString(7, article.getEtatVente());
+			stm.setInt(8, article.getUser().getNoUtilisateur());
+			stm.setInt(9, article.getCategorie().getNoCategorie());
 			int nb = stm.executeUpdate();
 			if (nb > 0) {
 				ResultSet rs = stm.getGeneratedKeys();
@@ -149,7 +153,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 	public void insertEnchere(Enchere enchere) {
 		try (Connection connection = ConnectionProvider.getConnection()) {
 			PreparedStatement stm = connection.prepareStatement(SQL_INSERT_ENCHERE);
-			stm.setDate(1, Date.valueOf(enchere.getDateEnchere()));
+			stm.setTimestamp(1, Timestamp.valueOf(enchere.getDateEnchere()));
 			stm.setInt(2, enchere.getMontant_enchere());
 			stm.setInt(3, enchere.getArticle().getNoArticle());
 			stm.setInt(4, enchere.getUser().getNoUtilisateur());
@@ -163,49 +167,118 @@ public class EnchereDAOImpl implements EnchereDAO {
 
 	@Override
 	public void updateArticleEnVente(ArticleEnVente article) {
-		// TODO Auto-generated method stub
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement stm = connection.prepareStatement(SQL_UPDATE_ARTICLE_VENDU);
+			stm.setString(1, article.getNom());
+			stm.setString(2, article.getDescription());
+			stm.setDate(3, Date.valueOf(article.getDateDebutEncheres()));
+			stm.setDate(4, Date.valueOf(article.getDateFinEncheres()));
+			stm.setInt(5, article.getMiseAPrix());
+			stm.setInt(6, article.getPrixVente());
+			stm.setInt(7, article.getNoArticle());
+			stm.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
-	public void updateArticleCurrentPrice(Integer id) {
-		// TODO Auto-generated method stub
+	public void updateArticleCurrentPrice(ArticleEnVente article, Integer newPrice) {
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement stm = connection.prepareStatement(SQL_UPDATE_ARTICLE_VENDU_PRIX_INITIAL);
+			stm.setInt(6, newPrice);
+			stm.setInt(2, article.getNoArticle());
+			stm.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
-	public void updateRetrait(Retrait retrait) {
-		// TODO Auto-generated method stub
+	public void updateRetrait(Retrait retrait, Integer id) {
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement stm = connection.prepareStatement(SQL_UPDATE_RETRAIT);
+			stm.setString(1, retrait.getRue());
+			stm.setString(2, retrait.getCode_postal());
+			stm.setString(3, retrait.getVille());
+			stm.setInt(4, id);
+			stm.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	public void updateUtilisateur(Utilisateur user) {
-		// TODO Auto-generated method stub
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement stm = connection.prepareStatement(SQL_UPDATE_UTILISATEUR);
+			stm.setString(1, user.getPseudo());
+			stm.setString(2, user.getNom());
+			stm.setString(3, user.getPrenom());
+			stm.setString(4, user.getEmail());
+			stm.setString(5, user.getTelephone());
+			stm.setString(6, user.getRue());
+			stm.setString(7, user.getCodePostal());
+			stm.setString(8, user.getVille());
+			stm.setString(9, user.getMotDePasse());
+			stm.setInt(10, user.getCredit());
+			stm.setInt(11, user.getAdministrateur());
+			stm.setInt(12, user.getNoUtilisateur());
+			stm.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
-	public void updateCredit(Integer noUtilisateur, Integer newCredit) {
-		// TODO Auto-generated method stub
+	public void updateCredit(Utilisateur user, Integer newCredit) {
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement stm = connection.prepareStatement(SQL_UPDATE_UTILISATEURS_CREDIT);
+			stm.setInt(1, newCredit);
+			stm.setInt(2, user.getNoUtilisateur());
+			stm.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	public void deleteArticleEnVente(ArticleEnVente article) {
-		// TODO Auto-generated method stub
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement stm = connection.prepareStatement(SQL_DELETE_ARTICLE_VENDU);
+			stm.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
-	public void deleteRetrait(Retrait retrait) {
-		// TODO Auto-generated method stub
+	public void deleteRetrait(Integer id) {
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement stm = connection.prepareStatement(SQL_DELETE_RETRAITS);
+			stm.setInt(1, id);
+			stm.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	public void deleteUtilisateur(Utilisateur user) {
-		// TODO Auto-generated method stub
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement stm = connection.prepareStatement(SQL_DELETE_UTILISATEUR);
+			stm.setInt(1, user.getNoUtilisateur());
+			stm.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -285,13 +358,35 @@ public class EnchereDAOImpl implements EnchereDAO {
 
 	@Override
 	public ArticleEnVente getArticleEnVenteById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		ArticleEnVente article = null;
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement stm = connection.prepareStatement(SQL_SELECT_ARTICLES_VENDUS_ID);
+			stm.setInt(1, id);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				article = new ArticleEnVente(rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getString("etat_vente"));
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return article;
 	}
 
 	@Override
 	public Retrait getRetraitByNoArticle(Integer noArticle) {
-		// TODO Auto-generated method stub
+		Retrait retrait = null;
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement stm = connection.prepareStatement(SQL_SELECT_RETRAIT_ID);
+			stm.setInt(1, noArticle);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				retrait = new Retrait(rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"));
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -305,7 +400,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			while (rs.next()) {
 				article = new ArticleEnVente(rs.getString("nom_article"), rs.getString("description"),
 						rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(),
-						rs.getInt("prix_initial"), rs.getInt("prix_vente"));
+						rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getString("etat_vente"));
 				articles.add(article);
 			}
 			connection.close();
@@ -323,7 +418,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			PreparedStatement stm = connection.prepareStatement(SQL_SELECT_ENCHERE);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
-				enchere = new Enchere(rs.getDate("date_enchere").toLocalDate(), rs.getInt("montant_enchere"));
+				enchere = new Enchere(rs.getTimestamp("date_enchere").toLocalDateTime(), rs.getInt("montant_enchere"));
 				encheres.add(enchere);
 			}
 			connection.close();
@@ -391,75 +486,145 @@ public class EnchereDAOImpl implements EnchereDAO {
 	}
 
 	@Override
-	public List<ArticleEnVente> getArticlesEnVenteByEtatVente(ArticleEnVente article) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ArticleEnVente> getArticlesEnVenteByEtatVente(String etat) {
+		List<ArticleEnVente> articles = new ArrayList<>();
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			ArticleEnVente article;
+			PreparedStatement stm = connection.prepareStatement(SQL_SELECT_ARTICLES_VENDUS_BY_ETAT_VENTE);
+			stm.setString(1, etat);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				article = new ArticleEnVente(rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getString("etat_vente"));
+				articles.add(article);
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return articles;
 	}
 
 	@Override
-	public List<ArticleEnVente> getArticlesEnVenteByVendeurAndEtatVente(Utilisateur user, ArticleEnVente article) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ArticleEnVente> getArticlesEnVenteByVendeurAndEtatVente(Integer id, String etat) {
+		List<ArticleEnVente> articles = new ArrayList<>();
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			ArticleEnVente article;
+			PreparedStatement stm = connection.prepareStatement(SQL_SELECT_ARTICLES_VENDUS_BY_ETAT_VENTE_AND_VENDEUR);
+			stm.setString(1, etat);
+			stm.setInt(2, id);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				article = new ArticleEnVente(rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getString("etat_vente"));
+				articles.add(article);
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return articles;
 	}
 
 	@Override
-	public List<ArticleEnVente> getArticlesAcquireByUtilisateur(Utilisateur user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ArticleEnVente> getArticlesAndEtatVenteByUtilisateur(Utilisateur user, ArticleEnVente article) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ArticleEnVente> getArticlesAcquireByUtilisateur(Integer id) {
+		List<ArticleEnVente> articles = new ArrayList<>();
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			ArticleEnVente article;
+			PreparedStatement stm = connection.prepareStatement(SQL_SELECT_ARTICLES_VENDUS_BY_UTILISATEUR);
+			stm.setInt(1, id);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				article = new ArticleEnVente(rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getString("etat_vente"));
+				articles.add(article);
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return articles;
 	}
 
 	@Override
 	public List<Enchere> getAllCurrentEncheres() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Enchere> encheres = new ArrayList<>();
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			Enchere enchere;
+			PreparedStatement stm = connection.prepareStatement(SQL_SELECT_ENCHERE);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				enchere = new Enchere(rs.getTimestamp("date_enchere").toLocalDateTime(), rs.getInt("montant_enchere"));
+				encheres.add(enchere);
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return encheres;
 	}
 
-	@Override
-	public List<Enchere> getAllCurrentEncheresOrderedByCategorie() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<Enchere> getAllCurrentEncheresOrderedByCategorie() {
+//		// TODO Mettre une HashMap?
+//		return null;
+//	}
 
 	@Override
 	public List<Enchere> getAllCurrentEncheresOrderedByNomArticle() {
-		// TODO Auto-generated method stub
+		// TODO Mettre une HashMap?
 		return null;
 	}
 
 	@Override
-	public List<Enchere> getAllEncheresWhereUtilisateurSetOffer() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ArticleEnVente> getAllArticlesEnVenteWhereUtilisateurSetOffer() {
+		List<ArticleEnVente> articles = new ArrayList<>();
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			ArticleEnVente article;
+			PreparedStatement stm = connection.prepareStatement(SQL_SELECT_ARTICLES_VENDUS_WHERE_IS_OFFER);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				article = new ArticleEnVente(rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getString("etat_vente"));
+				articles.add(article);
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return articles;
 	}
 
 	@Override
 	public List<ArticleEnVente> getArticleEnVenteFromCategorie(Categorie categorie) {
-		// TODO Auto-generated method stub
+		// TODO Mettre une HashMap?
 		return null;
 	}
 
 	@Override
-	public List<ArticleEnVente> getArticleEnVenteOrderedByNom(ArticleEnVente article) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ArticleEnVente> getArticleEnVenteOrderedByNom() {
+		List<ArticleEnVente> articles = new ArrayList<>();
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			ArticleEnVente article;
+			PreparedStatement stm = connection.prepareStatement(SQL_SELECT_ARTICLES_VENDUS_ORDER_BY_NOM_ARTICLE);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				article = new ArticleEnVente(rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getString("etat_vente"));
+				articles.add(article);
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return articles;
 	}
 
 	@Override
-	public HashMap<ArticleEnVente, Integer> getAmountAndUtilisateurOfBestOfferFromArticleEnVente(ArticleEnVente article) {
-		// TODO Auto-generated method stub
+	public Enchere getAmountAndUtilisateurOfBestOfferFromArticleEnVente(ArticleEnVente article) {
+		// TODO Mettre une HashMap?
 		return null;
 	}
 
-	@Override
-	public HashMap<Integer, String> getArticlePseudoUtilisateurWithCurrentEnchere() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public HashMap<Integer, String> getArticlePseudoUtilisateurWithCurrentEnchere() {
+//		// TODO Mettre une HashMap?
+//		return null;
+//	}
 
 }

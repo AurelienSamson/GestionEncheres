@@ -22,19 +22,8 @@ public class ArticleEnVente {
 		super();
 	}
 
-	public ArticleEnVente(String nom, String description, LocalDate dateDebutEncheres,
-			LocalDate dateFinEncheres, Integer miseAPrix, Integer prixVente) {
-		super();
-		this.nom = nom;
-		this.description = description;
-		this.dateDebutEncheres = dateDebutEncheres;
-		this.dateFinEncheres = dateFinEncheres;
-		this.miseAPrix = miseAPrix;
-		this.prixVente = prixVente;
-	}
-	
 	public ArticleEnVente(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			Integer miseAPrix, Integer prixVente, Utilisateur user, Categorie categorie) {
+			Integer miseAPrix, Integer prixVente, String etatVente) {
 		super();
 		this.nom = nom;
 		this.description = description;
@@ -42,6 +31,19 @@ public class ArticleEnVente {
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
+		this.etatVente = etatVente;
+	}
+
+	public ArticleEnVente(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			Integer miseAPrix, Integer prixVente, String etatVente, Utilisateur user, Categorie categorie) {
+		super();
+		this.nom = nom;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.etatVente = etatVente;
 		this.user = user;
 		this.categorie = categorie;
 	}
@@ -157,11 +159,10 @@ public class ArticleEnVente {
 
 	@Override
 	public String toString() {
-		return "ArticleEnVente [noArticle=" + noArticle + ", nom=" + nom +  ", description="
-				+ description + ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres
-				+ ", miseAPrix=" + miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", user="
-				+ user.getPrenom() + ", lstEncheres=" + lstEncheres + ", lstRetrait=" + lstRetrait + ", categorie="
-				+ categorie.getLibelle() + "]";
+		return "ArticleEnVente [noArticle=" + noArticle + ", nom=" + nom + ", description=" + description
+				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
+				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", lstEncheres=" + lstEncheres
+				+ ", lstRetrait=" + lstRetrait + ", categorie=" + "]";
 	}
 
 }

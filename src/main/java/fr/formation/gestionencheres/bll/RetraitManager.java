@@ -6,16 +6,14 @@ import fr.formation.gestionencheres.bo.Retrait;
 
 public interface RetraitManager {
 	
-	public void createRetrait(Retrait retrait);
+	public void createRetrait(Retrait retrait) throws DALException, BllException;
 	
-	public List<Retrait> getAllRetrait();
+	public Retrait getRetraitByNoArticle(Integer noArticle) throws DALException;
 	
-	public Retrait getRetraitByNoArticle(Integer noArticle);
+	public void updateRetrait(Retrait retrait) throws BllException, DALException;
 	
-	public void updateRetrait(Retrait retrait);
+	public void deleteRetrait(Retrait retrait) throws DALException;
 	
-	public void deleteRetrait(Retrait retrait);
-	
-	
+	public BllException validateRetrait(Retrait retrait) throws BllException;	
 
 }

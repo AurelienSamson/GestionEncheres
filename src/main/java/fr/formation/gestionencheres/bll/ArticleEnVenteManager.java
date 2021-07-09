@@ -8,25 +8,25 @@ import fr.formation.gestionencheres.bo.Utilisateur;
 
 public interface ArticleEnVenteManager {
 	
-	public void createArticleEnVente(ArticleEnVente article);
+	public void createArticleEnVente(ArticleEnVente article) throws BllException, DALException;
 	
-	public ArticleEnVente getArticleEnVenteByNoArticle(Integer noArticle);
+	public ArticleEnVente getArticleEnVenteByNoArticle(Integer noArticle) throws DALException, BllException;
 	
-	public void updateArticleEnVente(ArticleEnVente article);
+	public void updateArticleEnVente(ArticleEnVente article) throws DALException, BllException;
 	
-	public void updateArticleCurrnetPrice(Integer noArticle, Integer newPrice);
+	public void updateArticleCurrnetPrice(Integer noArticle, Integer newPrice) throws DALException;
 	
-	public void deleteArticleEnVente(ArticleEnVente article);
+	public void deleteArticleEnVente(ArticleEnVente article) throws DALException;
 	
-	public List<ArticleEnVente> getAllArticleEnVentes();
+	public List<ArticleEnVente> getAllArticleEnVentes() throws DALException, BllException;
 	
-	public List<Integer> getNoArticleEnVenteByEtatVente(String etat);
+	public List<ArticleEnVente> getArticleEnVenteByEtatVente(String etat) throws DALException, BllException;
 	
-	public List<ArticleEnVente> getArticleEnVenteFromCategorie(Categorie categorie);
+	public List<ArticleEnVente> getArticleEnVenteByCategorie(Categorie categorie) throws DALException, BllException;
 	
-	public List<ArticleEnVente> getArticleEnVenteByNom(String nom);
+	public List<ArticleEnVente> getArticleEnVenteByNom(String nomArticle) throws DALException, BllException;
 	
-	public List<Integer> getNoArticleEnVenteByVendeurAndEtatVente(Utilisateur user, String etatVente);
+	public List<ArticleEnVente> getArticleEnVenteByVendeurAndEtatVente(Utilisateur user, String etatVente) throws DALException, BllException;
 	
 	public BllException validateArtticleEnVente(ArticleEnVente article);
 	

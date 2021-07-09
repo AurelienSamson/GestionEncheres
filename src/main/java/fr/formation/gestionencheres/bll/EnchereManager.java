@@ -9,19 +9,19 @@ import fr.formation.gestionencheres.bo.Utilisateur;
 
 public interface EnchereManager {
 
-	public void createEnchere(Enchere enchere);
+	public void createEnchere(Enchere enchere) throws DALException;
 	
-	public List<Enchere> getAllCurrentEncheres();
+	public List<Enchere> getAllCurrentEncheres() throws DALException;
 	
-	public List<Enchere> getAllCurrentEncheresByCategorie();
+	public List<Enchere> getAllCurrentEncheresByCategorie() throws DALException;
 	
-	public List<Enchere> getAllCurrentEncheresByNomArticle();
+	public List<Enchere> getAllCurrentEncheresByNomArticle() throws DALException;
 	
 	public List<Enchere> getAllEncheresWhereUtilisateurSetOffer();
 	
-	public List<Integer> getAllNoArticlesAcquireByUtilisateur(Utilisateur user);
+	public List<ArticleEnVente> getAllArticlesAcquireByUtilisateur(Utilisateur user);
 	
 	public HashMap<Integer, Integer> getAmountAndNoUtilisateurOfBestOfferFromArticleEnVente(ArticleEnVente article);
 	
-	public List<Integer> getAllNoArticlesAndEtatVenteByUtilisateur(Utilisateur user, String etatVente);
+	public List<Integer> getAllArticlesEnVenteByUtilisateurAndEtatVente(Utilisateur user, String etatVente) throws DALException;
 }

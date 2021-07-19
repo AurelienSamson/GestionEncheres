@@ -23,7 +23,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private final String SQL_CHECK_PSEUDO_ALREADY_EXIST = "SELECT * FROM UTILISATEUR WHERE pseudo LIKE ?;";
 	private final String SQL_CHECK_MAIL_ALREADY_EXIST = "SELECT * FROM UTILISATEUR WHERE email LIKE ?;";
 	private final String SQL_SELECT_NO_ARTICLE_AND_PSEUDO = "SELECT no_article, u.pseudo FROM ARTICLES_VENDUS av INNER JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur WHERE etat_vente = 'EC';";
-	
+
 	@Override
 	public void insertUtilisateur(Utilisateur user) {
 		try (Connection connection = ConnectionProvider.getConnection()) {
@@ -241,7 +241,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return articlesEnEnchere;
 	}
 
 }

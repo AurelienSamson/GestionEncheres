@@ -28,5 +28,5 @@ public interface UtilisateurDAO {
 	// public HashMap<Integer, String>
 	// selectNoArticlePseudoUtilisateurWithCurrentEnchere() throws DALException;
 
-	public void updateCredit(Utilisateur user, Integer newCredit) throws DALException;
+	public void updateCredit(Integer noUtilisateur, Integer newCredit) throws DALException;
 }

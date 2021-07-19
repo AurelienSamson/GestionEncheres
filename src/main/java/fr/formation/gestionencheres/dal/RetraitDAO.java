@@ -13,8 +13,8 @@ public interface RetraitDAO {
 
 	public List<Retrait> selectAllRetraits() throws DALException;
 
-	public void updateRetrait(Retrait retrait, Integer id) throws DALException;
+	public void updateRetrait(Retrait retrait) throws DALException;
 
-	public void deleteRetrait(Integer id) throws DALException;
+	public void deleteRetrait(Retrait retrait) throws DALException;
 
 }

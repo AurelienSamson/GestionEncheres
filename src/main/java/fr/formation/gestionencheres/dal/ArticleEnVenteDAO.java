@@ -31,7 +31,7 @@ public interface ArticleEnVenteDAO {
 
 	public void updateArticleEnVente(ArticleEnVente article) throws DALException;
 
-	public void updateArticleCurrentPrice(ArticleEnVente article, Integer newPrice) throws DALException;
+	public void updateArticleCurrentPrice(Integer noArticle, Integer newPrice) throws DALException;
 
 	public void deleteArticleEnVente(ArticleEnVente article) throws DALException;
 

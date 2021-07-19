@@ -51,7 +51,7 @@ public class ArticleEnVenteManagerImpl implements ArticleEnVenteManager {
 
 	@Override
 	public void updateArticleCurrnetPrice(Integer noArticle, Integer newPrice) throws DALException {
-		dao.updateArticleCurrnetPrice(noArticle, newPrice);
+		dao.updateArticleCurrentPrice(noArticle, newPrice);
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class ArticleEnVenteManagerImpl implements ArticleEnVenteManager {
 	@Override
 	public List<ArticleEnVente> getArticleEnVenteByVendeurAndEtatVente(Utilisateur user, String etatVente)
 			throws DALException, BllException {
-		List<ArticleEnVente> articleEnVentes = dao.selectArticleEnVenteByVendeurAndEtatVente(user, etatVente);
+		List<ArticleEnVente> articleEnVentes = dao.selectArticleEnVenteByVendeurAndEtatVente(user.getNoUtilisateur(), etatVente);
 		if (articleEnVentes.isEmpty()) {
 			BllException bllException = new BllException();
 			bllException.addError(BLLErrorCodes.NO_RESULTS_ERROR);

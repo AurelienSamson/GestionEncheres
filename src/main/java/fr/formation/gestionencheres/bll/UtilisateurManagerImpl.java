@@ -23,7 +23,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		if(bllException.ErrorsExist()) {
 			throw bllException;
 		}else {
-			dao.insert(user);
+			dao.insertUtilisateur(user);
 		}
 
 	}

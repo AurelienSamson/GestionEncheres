@@ -37,13 +37,13 @@ public class RetraitDAOImpl implements RetraitDAO {
 	}
 
 	@Override
-	public void updateRetrait(Retrait retrait, Integer id) {
+	public void updateRetrait(Retrait retrait) {
 		try (Connection connection = ConnectionProvider.getConnection()) {
 			PreparedStatement stm = connection.prepareStatement(SQL_UPDATE_RETRAIT);
 			stm.setString(1, retrait.getRue());
 			stm.setString(2, retrait.getCode_postal());
 			stm.setString(3, retrait.getVille());
-			stm.setInt(4, id);
+			stm.setInt(4, retrait.getArticle().getNoArticle());
 			stm.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -52,10 +52,10 @@ public class RetraitDAOImpl implements RetraitDAO {
 	}
 
 	@Override
-	public void deleteRetrait(Integer id) {
+	public void deleteRetrait(Retrait retrait) {
 		try (Connection connection = ConnectionProvider.getConnection()) {
 			PreparedStatement stm = connection.prepareStatement(SQL_DELETE_RETRAITS);
-			stm.setInt(1, id);
+			stm.setInt(1, retrait.getArticle().getNoArticle());
 			stm.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

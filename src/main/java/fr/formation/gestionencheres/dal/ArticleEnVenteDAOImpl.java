@@ -76,11 +76,11 @@ public class ArticleEnVenteDAOImpl implements ArticleEnVenteDAO {
 	}
 
 	@Override
-	public void updateArticleCurrentPrice(ArticleEnVente article, Integer newPrice) {
+	public void updateArticleCurrentPrice(Integer noArticle, Integer newPrice) {
 		try (Connection connection = ConnectionProvider.getConnection()) {
 			PreparedStatement stm = connection.prepareStatement(SQL_UPDATE_ARTICLE_VENDU_PRIX_INITIAL);
 			stm.setInt(6, newPrice);
-			stm.setInt(2, article.getNoArticle());
+			stm.setInt(2, noArticle);
 			stm.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

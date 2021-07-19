@@ -92,13 +92,11 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 
 	@Override
 	public BllException validateUtilisateur(Utilisateur user) {
-		// TO DO :  Je ne sais pas encore comment verifier les Pseudo alphanumerique
-		// le format de l'email, ainsi que le telephone
-		// J'ai vu sur le net on parle des regular expression du genre "^[A-Za-z0-9]+" : je savais meme pas l'existence de ca.
-		// je garde ca pour une petite lecture et voir comment inserer ca.
+		// Expressions regulieres pour valider les formats: Pseudo, email, telephone
+		// Site Utilisé pour construire ces expressions:  https://regex101.com/ 
 		
 		String pseudoValidationRegularExpression = "^[A-Za-z0-9]+";
-		String emailValidationRegularExpression = "";
+		String emailValidationRegularExpression = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
 		String telephoneValidationRegularExpression = "^0[1-9][0-9]{8}$";
 		
 		
@@ -125,6 +123,9 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		}
 		
 		//TO DO: Check for Format Email:  Not yet found an appropriate Regular expression
+		if(!Pattern.matches(emailValidationRegularExpression, user.getEmail())) {
+			bllException.addError(BLLErrorCodes.FORMAT_EMAIL_UTILISATEUR_ERROR);
+		}
 		
 		if(user.getTelephone().length()>15) {
 			bllException.addError(BLLErrorCodes.LENGTH_TEL_UTILISATEUR_ERROR);

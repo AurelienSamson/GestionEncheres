@@ -19,7 +19,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private final String SQL_SELECT_UTILISATEUR = "SELECT * FROM UTILISATEURS;";
 	private final String SQL_SELECT_UTILISATEUR_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?;";
 	private final String SQL_SELECT_UTILISATEUR_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo = ?;";
-
+	private final String SQL_CHECK_PSEUDO_AND_MAIL_ALREADY_EXIST = "SELECT * FROM UTILISATEUR WHERE pseudo LIKE ? OR email LIKE ?;";
+	private final String SQL_CHECK_PSEUDO_ALREADY_EXIST = "SELECT * FROM UTILISATEUR WHERE pseudo LIKE ?;";
+	private final String SQL_CHECK_MAIL_ALREADY_EXIST = "SELECT * FROM UTILISATEUR WHERE email LIKE ?;";
+	private final String SQL_SELECT_NO_ARTICLE_AND_PSEUDO = "SELECT no_article, u.pseudo FROM ARTICLES_VENDUS av INNER JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur WHERE etat_vente = 'EC';";
+	
 	@Override
 	public void insertUtilisateur(Utilisateur user) {
 		try (Connection connection = ConnectionProvider.getConnection()) {
@@ -74,11 +78,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public void updateCredit(Utilisateur user, Integer newCredit) {
+	public void updateCredit(Integer noUtilisateur, Integer newCredit) {
 		try (Connection connection = ConnectionProvider.getConnection()) {
 			PreparedStatement stm = connection.prepareStatement(SQL_UPDATE_UTILISATEURS_CREDIT);
 			stm.setInt(1, newCredit);
-			stm.setInt(2, user.getNoUtilisateur());
+			stm.setInt(2, noUtilisateur);
 			stm.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -159,28 +163,85 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		return utilisateur;
 	}
 
-//	@Override
-//	public boolean checkForUniquePseudoAndMail(String pseudo, String mail) throws DALException {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-//
-//	@Override
-//	public boolean checkForUniquePseudo(String pseudo) throws DALException {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-//
-//	@Override
-//	public boolean checkForUniqueMail(String mail) throws DALException {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-//
-//	@Override
-//	public HashMap<Integer, String> selectNoArticlePseudoUtilisateurWithCurrentEnchere() throws DALException {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	@Override
+	public boolean checkForUniquePseudoAndMail(String pseudo, String mail) throws DALException {
+		boolean isUnique = true;
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement stm = connection.prepareStatement(SQL_CHECK_PSEUDO_AND_MAIL_ALREADY_EXIST);
+			stm.setString(1, pseudo);
+			stm.setString(2, pseudo);
+			stm.execute();
+			ResultSet rs = stm.getResultSet();
+			if (rs.next()) {
+				isUnique = false;
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			DALException dalException = new DALException();
+			dalException.addError(DalErrorCodes.SQL_SELECT_ERROR);
+			throw dalException;
+		}
+		return isUnique;
+
+	}
+
+	@Override
+	public boolean checkForUniquePseudo(String pseudo) throws DALException {
+		boolean isUnique = true;
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement stm = connection.prepareStatement(SQL_CHECK_PSEUDO_ALREADY_EXIST);
+			stm.setString(1, pseudo);
+			stm.execute();
+			ResultSet rs = stm.getResultSet();
+			if (rs.next()) {
+				isUnique = false;
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			DALException dalException = new DALException();
+			dalException.addError(DalErrorCodes.SQL_SELECT_ERROR);
+			throw dalException;
+		}
+		return isUnique;
+	}
+
+	@Override
+	public boolean checkForUniqueMail(String mail) throws DALException {
+		boolean isUnique = true;
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement stm = connection.prepareStatement(SQL_CHECK_MAIL_ALREADY_EXIST);
+			stm.setString(1, mail);
+			stm.execute();
+			ResultSet rs = stm.getResultSet();
+			if (rs.next()) {
+				isUnique = false;
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			DALException dalException = new DALException();
+			dalException.addError(DalErrorCodes.SQL_SELECT_ERROR);
+			throw dalException;
+		}
+		return isUnique;
+	}
+
+	@Override
+	public HashMap<Integer, String> selectNoArticlePseudoUtilisateurWithCurrentEnchere() throws DALException {
+		HashMap<Integer, String> articlesEnEnchere = new HashMap<>();
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement stm = connection.prepareStatement(SQL_SELECT_NO_ARTICLE_AND_PSEUDO);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				articlesEnEnchere.put(rs.getInt(1), rs.getString(2));
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

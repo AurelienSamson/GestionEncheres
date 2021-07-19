@@ -17,16 +17,15 @@ public interface UtilisateurDAO {
 
 	public void deleteUtilisateur(Utilisateur user) throws DALException;
 
-//	public boolean checkForUniquePseudoAndMail(String pseudo, String mail) throws DALException;
-//	
-//	public boolean checkForUniquePseudo(String pseudo) throws DALException;
-//	
-//	public boolean checkForUniqueMail(String mail) throws DALException;
+	public boolean checkForUniquePseudoAndMail(String pseudo, String mail) throws DALException;
+	
+	public boolean checkForUniquePseudo(String pseudo) throws DALException;
+	
+	public boolean checkForUniqueMail(String mail) throws DALException;
 
 	public Utilisateur selectUtilisateurByPseudo(String pseudo) throws DALException;
 
-	// public HashMap<Integer, String>
-	// selectNoArticlePseudoUtilisateurWithCurrentEnchere() throws DALException;
+	public HashMap<Integer, String> selectNoArticlePseudoUtilisateurWithCurrentEnchere() throws DALException;
 
 	public void updateCredit(Integer noUtilisateur, Integer newCredit) throws DALException;
 }

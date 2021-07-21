@@ -2,12 +2,17 @@
 
 body{
 	flex-wrap: all;
+	width: 100%;
 }
 
 h2 {
 	text-align: center;
-	padding-top: 1em;
-	padding-bottom: 2em; 
+	padding-bottom: 1em; 
+}
+
+.no_resize {
+	resize: none;
+	height: 9.4em;
 }
 
 #filtre_label{
@@ -18,10 +23,41 @@ h2 {
 	margin-bottom: 2em;
 }
 
+#bouton_encherir{
+	padding: 2em;
+	margin-left: 2em;
+}
+
+.row{
+	margin-bottom: 0.5em;
+}
+
 .button_alignement{
 	display: flex;
 }
 
 .align_center{
 	display: inline;
+}
+
+.space_after_menu_bar{
+	margin-top: 5em;
+}
+
+.align_with_textarea{
+	vertical-align: top;
+}
+
+.border_fieldset{
+	padding: 1em;
+	border: ridge;
+}
+
+.legend_restyled {
+	padding-left: 0.3em;
+	float: none;
+}
+
+.button_vente_form {
+	padding: 1em;
 }

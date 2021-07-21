@@ -1,12 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<h2 class="mb-md-5 text-center">Mon profil</h2>
 
-</body>
-</html>
+<!-- DEBUT DIV  -->
+<div class="form-group-md row">
+	
+	<label for="pseudo">Pseudo <i class="text-danger">*</i></label>
+	<input required type="text" class="form-control" name="pseudo" id="pseudo"
+		<c:choose>
+			<c:when test="${page == 'updateProfile'}"> 
+				value="<jsp:getProperty name="utilisateurSession" property="pseudo"/>"
+			</c:when>
+			<c:otherwise> 
+				placeholder="Pseudo (Caractères alphanumériques)"
+			</c:otherwise>
+		</c:choose>
+	>
+
+
+
+</div>
+<!-- FIN DIV  -->

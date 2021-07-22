@@ -28,7 +28,7 @@
 				<label class="col-lg-2 align_center">Catégorie : </label>
 				<select class="col-lg-10" name="categorie" id="categorie_select">
 					<c:forEach items="${categories}" var="categorie">
-						<option value="${categorie.noCategorie}" <c:out value="${categorie.libelle }"></c:out>ion>
+						<option value="${categorie.noCategorie}" <c:out value="${categorie.libelle }"></c:out>></option>
 					</c:forEach>
 				</select>
 			</div>

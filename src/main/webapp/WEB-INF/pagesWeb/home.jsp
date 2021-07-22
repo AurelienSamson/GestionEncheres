@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -25,7 +26,11 @@
 				<label class="col-lg-12" id="filtre_label">Filtres :</label>
 				<input class="col-lg-12" type="text" id="search_bar">
 				<label class="col-lg-2 align_center">Catégorie : </label>
-				<select class="col-lg-10" name="categorie" id="categorie_select"></select>
+				<select class="col-lg-10" name="categorie" id="categorie_select">
+					<c:forEach items="${categories}" var="categorie">
+						<option value="${categorie.noCategorie}" <c:out value="${categorie.libelle }"></c:out>ion>
+					</c:forEach>
+				</select>
 			</div>
 			<div class="offset-lg-2 col-lg-4 offset-lg-1 button_alignement">
 				<input class="col-lg-12" type="submit" id="search_button" value="Rechercher">

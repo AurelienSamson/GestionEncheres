@@ -28,6 +28,14 @@ h2 {
 	margin-left: 2em;
 }
 
+#return_button_enchere {
+	padding: 1em;
+}
+
+#enchere_effectue_button {
+	padding: 1em;
+}
+
 .row{
 	margin-bottom: 0.5em;
 }
@@ -61,3 +69,4 @@ h2 {
 .button_vente_form {
 	padding: 1em;
 }
+

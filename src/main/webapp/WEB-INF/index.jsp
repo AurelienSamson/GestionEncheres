@@ -19,7 +19,7 @@
   </c:if>
   
   <c:if test="${page == 'home'}">
-    <%@include file="pagesWeb/home.jspf"%>
+    <%@include file="pagesWeb/home.jsp"%>
   </c:if>
   
   <c:if test="${page == 'profile'}">
@@ -30,16 +30,16 @@
     <%@include file="pagesWeb/updateProfile.jspf"%>
   </c:if>
   
-  <c:if test="${page == 'postEnchere'}">
-    <%@include file="pagesWeb/createEnchere.jspf"%>
+  <c:if test="${page == 'createVente'}">
+    <%@include file="pagesWeb/createVente.jsp"%>
   </c:if>
   
   <c:if test="${page == 'seeEnchere'}">
     <%@include file="pagesWeb/enchere.jspf"%>
   </c:if>
   
-  <c:if test="${page == 'updateEncher'}">
-    <%@include file="pagesWeb/updateEnchere.jspf"%>
+  <c:if test="${page == 'setEnchere'}">
+    <%@include file="pagesWeb/setEnchere.jsp"%>
   </c:if>
   
 </body>

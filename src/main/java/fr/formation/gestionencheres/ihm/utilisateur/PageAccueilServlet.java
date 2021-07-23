@@ -8,8 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.formation.gestionencheres.bll.ArticleEnVenteManager;
+import fr.formation.gestionencheres.bll.ArticleEnVenteManagerSingl;
+import fr.formation.gestionencheres.bll.BllException;
 import fr.formation.gestionencheres.bll.CategorieManager;
 import fr.formation.gestionencheres.bll.CategorieManagerSingl;
+import fr.formation.gestionencheres.bll.UtilisateurManager;
+import fr.formation.gestionencheres.bll.UtilisateurManagerSingl;
+import fr.formation.gestionencheres.bo.ArticleEnVente;
 import fr.formation.gestionencheres.dal.DALException;
 
 /**
@@ -18,7 +24,7 @@ import fr.formation.gestionencheres.dal.DALException;
 @WebServlet("/PageAccueilServlet")
 public class PageAccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private PageAccueilModel accueilModel = new PageAccueilModel();       
+	private PageAccueilModel accueilModel = new PageAccueilModel(); 
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,10 +38,16 @@ public class PageAccueilServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CategorieManager categorieManager = new CategorieManagerSingl().getInstance();
+		ArticleEnVenteManager articleEnVenteManager = new ArticleEnVenteManagerSingl().getInstance();
 		try {
 			accueilModel.setCategories(categorieManager.getAllCategories());
-			request.setAttribute("categories", accueilModel.getCategories());
+			accueilModel.setArticles(articleEnVenteManager.getAllArticleEnVentes());
+			System.out.println(accueilModel.getArticles());
+			request.setAttribute("accueilModel", accueilModel);
 		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BllException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

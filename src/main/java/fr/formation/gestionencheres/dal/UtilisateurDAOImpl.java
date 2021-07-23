@@ -39,7 +39,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			stm.setString(8, user.getVille());
 			stm.setString(9, user.getMotDePasse());
 			stm.setInt(10, user.getCredit());
-			stm.setInt(11, user.getAdministrateur());
+			stm.setBoolean(11, user.getAdministrateur());
 			int nb = stm.executeUpdate();
 			if (nb > 0) {
 				ResultSet rs = stm.getGeneratedKeys();
@@ -68,7 +68,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			stm.setString(8, user.getVille());
 			stm.setString(9, user.getMotDePasse());
 			stm.setInt(10, user.getCredit());
-			stm.setInt(11, user.getAdministrateur());
+			stm.setBoolean(11, user.getAdministrateur());
 			stm.setInt(12, user.getNoUtilisateur());
 			stm.executeUpdate();
 		} catch (SQLException e) {
@@ -113,7 +113,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 				utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
 						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
 						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
-						rs.getInt("credit"), rs.getInt("administrateur"));
+						rs.getInt("credit"), rs.getBoolean("administrateur"));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -133,7 +133,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 				utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
 						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
 						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
-						rs.getInt("credit"), rs.getInt("administrateur"));
+						rs.getInt("credit"), rs.getBoolean("administrateur"));
 				utilisateurs.add(utilisateur);
 			}
 			connection.close();
@@ -154,7 +154,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 				utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
 						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
 						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
-						rs.getInt("credit"), rs.getInt("administrateur"));
+						rs.getInt("credit"), rs.getBoolean("administrateur"));
 			}
 			connection.close();
 		} catch (SQLException e) {

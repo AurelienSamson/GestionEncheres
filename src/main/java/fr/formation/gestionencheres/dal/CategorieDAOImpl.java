@@ -14,9 +14,9 @@ import fr.formation.gestionencheres.bo.Categorie;
 
 public class CategorieDAOImpl implements CategorieDAO {
 	private final String SQL_INSERT_CATEGORIE = "INSERT INTO CATEGORIES VALUES (?);";
-	private final String SQL_SELECT_CATEGORIE = "SELECT * FROM CATEGORIE;";
-	private final String SQL_SELECT_CATEGORIE_ID = "SELECT * FROM CATEGORIE WHERE no_categorie = ?;";
-	private final String SQL_SELECT_CATEGORIE_LIBELLE = "SELECT * FROM CATEGORIE WHERE libelle = ?;";
+	private final String SQL_SELECT_CATEGORIE = "SELECT * FROM CATEGORIES;";
+	private final String SQL_SELECT_CATEGORIE_ID = "SELECT * FROM CATEGORIES WHERE no_categorie = ?;";
+	private final String SQL_SELECT_CATEGORIE_LIBELLE = "SELECT * FROM CATEGORIES WHERE libelle = ?;";
 
 	@Override
 	public void insertCategorie(Categorie categorie) {

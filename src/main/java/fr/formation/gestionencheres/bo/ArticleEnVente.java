@@ -35,7 +35,7 @@ public class ArticleEnVente {
 	}
 
 	public ArticleEnVente(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			Integer miseAPrix, Integer prixVente, String etatVente, Utilisateur user, Categorie categorie) {
+			Integer miseAPrix, Integer prixVente, String etatVente, Utilisateur user) {
 		super();
 		this.nom = nom;
 		this.description = description;

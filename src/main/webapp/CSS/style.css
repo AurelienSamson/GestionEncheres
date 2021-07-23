@@ -70,3 +70,19 @@ h2 {
 	padding: 1em;
 }
 
+.repartition_article_avec_rl {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.bordure_article {
+	border: solid;
+	margin-right: 8em;
+	margin-bottom: 1em;
+}
+
+.disposition_infos_articles {
+	display: flex;
+	height: 45%;
+}
+

@@ -19,7 +19,7 @@ public class ArticleEnVenteDAOImpl implements ArticleEnVenteDAO {
 	private final String SQL_UPDATE_ARTICLE_VENDU = "UPDATE ARTICLES_VENDU SET nom_article = ?, description = ?, date_debut_encheres = ?, date_fin_encheres = ?, prix_initial = ?, prix_vente = ? WHERE no_article = ?;";
 	private final String SQL_UPDATE_ARTICLE_VENDU_PRIX_INITIAL = "UPDATE ARTICLES_VENDU SET prix_vente = ? WHERE no_article = ?;";
 	private final String SQL_DELETE_ARTICLE_VENDU = "DELETE FROM ARTICLES_VENDUS WHERE no_article = ?;";
-	private final String SQL_SELECT_ARTICLE_VENDU = "SELECT * FROM ARTICLES_VENDUS;";
+	private final String SQL_SELECT_ARTICLE_VENDU = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, etat_vente, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM ARTICLES_VENDUS av INNER JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur;";
 	private final String SQL_SELECT_ARTICLES_VENDUS_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article = ?;";
 	private final String SQL_SELECT_ARTICLES_VENDUS_BY_CATEGORIE = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente FROM ARTICLES_VENDUS WHERE no_categorie = ?;";
 	private final String SQL_SELECT_ARTICLES_VENDUS_BY_CATEGORIE_INNER_JOIN = "SELECT c.libelle, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente FROM ARTICLES_VENDUS av INNER JOIN CATEGORIES c ON av.no_categorie = c.no_categorie ORDER BY c.libelle ASC;";
@@ -128,7 +128,9 @@ public class ArticleEnVenteDAOImpl implements ArticleEnVenteDAO {
 			while (rs.next()) {
 				article = new ArticleEnVente(rs.getString("nom_article"), rs.getString("description"),
 						rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(),
-						rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getString("etat_vente"));
+						rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getString("etat_vente"), new Utilisateur(rs.getString("pseudo"), 
+						rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), 
+						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur")));
 				articles.add(article);
 			}
 			connection.close();

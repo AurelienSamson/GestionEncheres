@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<h2 class="mb-md-5 text-center">Mon profil</h2>
 
-<!-- DEBUT DIV  -->
-<div class="form-group-md row">
+<!DOCTYPE html>
+<html lang="fr">
+<h2 >Mon profil</h2>
+<body>
+<!-- DEBUT DIV Group row 1: Pseudo --- Nom  -->
+<div >
 	
-	<label for="pseudo">Pseudo <i class="text-danger">*</i></label>
-	<input required type="text" class="form-control" name="pseudo" id="pseudo"
+	<label  for="pseudo">Pseudo</label>
+	<div >
+	<input required type="text" name="pseudo" id="pseudo"
 		<c:choose>
 			<c:when test="${page == 'updateProfile'}"> 
 				value="<jsp:getProperty name="utilisateurSession" property="pseudo"/>"
@@ -16,9 +20,135 @@
 				placeholder="Pseudo (Caractères alphanumériques)"
 			</c:otherwise>
 		</c:choose>
-	>
-
-
-
+	>	
+	</div>
+	
+	<label  for="name">Nom
+		<i >*</i>
+	</label>
+	<div>
+	<input required type="text"  name="name" id="name"
+		<c:choose>
+			<c:when test="${page == 'updateProfile'}"> 
+				value="<jsp:getProperty name="utilisateurSession" property="nom"/>"
+			</c:when>
+			<c:otherwise> 
+				placeholder="Nom"
+			</c:otherwise>
+		</c:choose>
+	>	
+	</div>
+	
 </div>
-<!-- FIN DIV  -->
+<!-- FIN DIV  Group row 1: Pseudo --- Nom-->
+
+<!-- DEBUT DIV Group row 2: Prenom --- email  -->
+<div >
+	
+	<label > Prénom<i>*</i></label>
+	<div >
+	<input required type="text"  name="firstName" id="firstName"
+		<c:choose>
+			<c:when test="${page == 'updateProfile'}"> 
+				value="<jsp:getProperty name="utilisateurSession" property="prenom"/>"
+			</c:when>
+			<c:otherwise> 
+				placeholder="Prénom"
+			</c:otherwise>
+		</c:choose>
+	>	
+	</div>
+	
+	<label   for="email">Email
+		<i >*</i>
+	</label>
+	<div >
+	<input required type="text"  name="email" id="email"
+		<c:choose>
+			<c:when test="${page == 'updateProfile'}"> 
+				value="<jsp:getProperty name="utilisateurSession" property="email"/>"
+			</c:when>
+			<c:otherwise> 
+				placeholder="Email"
+			</c:otherwise>
+		</c:choose>
+	>	
+	</div>
+	
+</div>
+<!-- FIN DIV  Group row 2: Prenom --- email-->
+
+<!-- DEBUT DIV Group row 3: Telephone --- Rue  -->
+<div >
+	
+	<label  for="tel"> Téléphone<i class="text-danger">*</i></label>
+	<div >
+	<input required type="text" name="telephone" id="telephone"
+		<c:choose>
+			<c:when test="${page == 'updateProfile'}"> 
+				value="<jsp:getProperty name="utilisateurSession" property="telephone"/>"
+			</c:when>
+			<c:otherwise> 
+				placeholder="Téléphone (format : 0600000000)"
+			</c:otherwise>
+		</c:choose>
+	>	
+	</div>
+	
+	<label   for="street">Rue
+		<i class="text-danger">*</i>
+	</label>
+	<div >
+	<input required type="text" class ="form-control" name="street" id="street"
+		<c:choose>
+			<c:when test="${page == 'updateProfile'}"> 
+				value="<jsp:getProperty name="utilisateurSession" property="rue"/>"
+			</c:when>
+			<c:otherwise> 
+				placeholder="Rue"
+			</c:otherwise>
+		</c:choose>
+	>	
+	</div>
+	
+</div>
+<!-- FIN DIV  Group row 3: Telephone --- Rue-->
+
+<!-- DEBUT DIV Group row 4: Code Postal --- Ville  -->
+<div >
+	
+	<label for="codePostal"> Code Postal<i >*</i></label>
+	<div >
+	<input required type="text"  name="codePostal" id="codePostal"
+		<c:choose>
+			<c:when test="${page == 'updateProfile'}"> 
+				value="<jsp:getProperty name="utilisateurSession" property="codePostal"/>"
+			</c:when>
+			<c:otherwise> 
+				placeholder="Code Postal"
+			</c:otherwise>
+		</c:choose>
+	>	
+	</div>
+	
+	<label   for="town">Ville
+		<i >*</i>
+	</label>
+	<div>
+	<input required type="text" name="town" id="town"
+		<c:choose>
+			<c:when test="${page == 'updateProfile'}"> 
+				value="<jsp:getProperty name="utilisateurSession" property="ville"/>"
+			</c:when>
+			<c:otherwise> 
+				placeholder="Ville"
+			</c:otherwise>
+		</c:choose>
+	>	
+	</div>
+	
+</div>
+<!-- FIN DIV  Group row 4: Code Postal --- Ville-->
+</body>
+</html>
+

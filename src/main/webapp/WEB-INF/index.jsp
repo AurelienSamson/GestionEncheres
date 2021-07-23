@@ -8,8 +8,6 @@
 <html lang="fr">
 <%@include file="templates/head.jspf"%>
 <body class="m-2">
-  <%@include file="templates/nav.jspf"%>
-  <%--@elvariable id="page" type="string"--%>
   <c:if test="${page == 'login'}">
     <%@include file="pagesWeb/login.jspf"%>
   </c:if>

@@ -13,15 +13,12 @@ import fr.formation.gestionencheres.bll.ArticleEnVenteManagerSingl;
 import fr.formation.gestionencheres.bll.BllException;
 import fr.formation.gestionencheres.bll.CategorieManager;
 import fr.formation.gestionencheres.bll.CategorieManagerSingl;
-import fr.formation.gestionencheres.bll.UtilisateurManager;
-import fr.formation.gestionencheres.bll.UtilisateurManagerSingl;
-import fr.formation.gestionencheres.bo.ArticleEnVente;
 import fr.formation.gestionencheres.dal.DALException;
 
 /**
  * Servlet implementation class PageAccueilServlet
  */
-@WebServlet("/PageAccueilServlet")
+@WebServlet("/encheres")
 public class PageAccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PageAccueilModel accueilModel = new PageAccueilModel(); 

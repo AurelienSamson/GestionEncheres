@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
-<!-- 
+
 	<Resource 
 		name="jdbc/Encheres"
 		
@@ -15,8 +15,8 @@
 		maxIdle="10"
 		maxWait="100000"
 	/>
- -->
-	<Resource 
+
+	<!-- <Resource 
 		name="jdbc/Encheres"
 
 		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
@@ -29,6 +29,6 @@
 		maxActive="20"
 		maxIdle="10"
 		maxWait="100000"
-	/>
+	/> -->
 
 </Context>

@@ -27,8 +27,8 @@
   <c:if test="${page == 'updateProfile'}">
     <%@include file="pagesWeb/updateProfile.jsp"%>
   </c:if>
-  
-  <c:if test="${page == 'postEnchere'}">
+
+  <c:if test="${page == 'createVente'}">
     <%@include file="pagesWeb/createVente.jsp"%>
   </c:if>
   
@@ -36,7 +36,7 @@
     <%@include file="pagesWeb/enchere.jsp"%>
   </c:if>
   
-  <c:if test="${page == 'setteEncher'}">
+  <c:if test="${page == 'setEnchere'}">
     <%@include file="pagesWeb/setEnchere.jsp"%>
   </c:if>
   

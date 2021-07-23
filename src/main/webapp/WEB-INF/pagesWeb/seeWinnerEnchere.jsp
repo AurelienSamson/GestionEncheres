@@ -13,30 +13,30 @@
 	<div class="container-fluid">
 		<div class="row">
 			<h1>ENI-Enchères</h1>
-			<h2>Détail vente</h2>
+		</div>
+		<div class="row">
+			<h2>jojo44 a remporté l'enchère</h2>
 		</div>
 		<div class="row">
 			<div class="col-lg-4">
-				<img class="offset-lg-3 col-lg-9 space_after_menu_bar" src="img/no_image.jpg">
+				<img class="offset-lg-3 col-lg-9" src="img/no_image.jpg">
 			</div>
 			<div class="col-lg-6">
-				<label class="offset-lg-1 col-lg-11 space_after_menu_bar"></label><br><br>
+				<label class="offset-lg-1 col-lg-11"></label><br><br>
 				<label class="offset-lg-1 col-lg-3 align_with_textarea">Description : </label>
-				<label class="col-lg-4"></label><br><br>
-				<label class="offset-lg-1 col-lg-3">Catégorie</label>
+				<label class="col-lg-7"></label><br><br>
+				<label class="offset-lg-1 col-lg-2">Meilleure offre : </label>
 				<label class="col-lg-3"></label><br><br>
-				<label class="offset-lg-1 col-lg-3">Meilleure offre : </label>
+				<label class="offset-lg-1 col-lg-2">Mise à prix : </label>
 				<label class="col-lg-3"></label><br><br>
-				<label class="offset-lg-1 col-lg-3">Mise à prix : </label>
+				<label class="offset-lg-1 col-lg-2">Fin de l'enchère : </label>
 				<label class="col-lg-3"></label><br><br>
-				<label class="offset-lg-1 col-lg-3">Retrait : </label>
-				<label class="col-lg-3"></label><br><br>
-				<label class="offset-lg-1 col-lg-3">Vendeur : </label>
-				<label class="col-lg-3"></label><br><br>
-				<label class="offset-lg-1 col-lg-3">Ma poposition : </label>
-				<input class="col-lg-1" type="number" id="nouvelle_proposition">
-				<input type="submit" id="bouton_encherir" value="Enchérir">
-
+				<label class="offset-lg-1 col-lg-1">Retrait : </label>
+				<label class="offset-lg-1 col-lg-8"></label>
+				<label class="offset-lg-3 col-lg-8">&nbsp;</label><br><br>
+				<label class="offset-lg-1 col-lg-2">Vendeur : </label>
+				<label class="col-lg-8"></label><br><br><br>
+				<input class="offset-lg-1 col-lg-2" type="button" id="enchere_effectue_button" value="Retrait effectué">
 			</div>
 		</div>
 	</div>

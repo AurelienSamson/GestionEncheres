@@ -79,15 +79,15 @@ public class CreateUtilisateurServlet extends HttpServlet {
 			}
 			request.setAttribute("loginCreated", "true");
 			//request.setAttribute("page", "home");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/home.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pagesWeb/createLogin.jsp");
 			rd.forward(request, response);
 		} else {
 			//request.setAttribute("page", "createLogin");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/createLogin.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pagesWeb/createLogin.jsp");
 			rd.forward(request, response);
 			request.setAttribute("utilisateurError", user);
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/createLogin.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pagesWeb/createLogin.jsp");
 		rd.forward(request, response);
 	}
 

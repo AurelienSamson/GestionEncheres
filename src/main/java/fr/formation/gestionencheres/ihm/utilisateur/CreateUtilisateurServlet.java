@@ -16,24 +16,19 @@ import fr.formation.gestionencheres.bll.UtilisateurManager;
 import fr.formation.gestionencheres.bll.UtilisateurManagerSingl;
 import fr.formation.gestionencheres.bo.Utilisateur;
 import fr.formation.gestionencheres.dal.DALException;
+import fr.formation.gestionencheres.dal.UtilisateurDAO;
+import fr.formation.gestionencheres.dal.UtilisateurDAOFact;
 import fr.formation.gestionencheres.ihm.adminTasks.ErrorsManagement;
 import fr.formation.gestionencheres.ihm.adminTasks.RequestManagement;
 
 /**
  * Servlet implementation class CreateUtilisateurServlet
  */
-@WebServlet("/CreateUtilisateurServlet")
+@WebServlet("/createLogin")
 public class CreateUtilisateurServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public CreateUtilisateurServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
+	private UtilisateurDAO userDao = UtilisateurDAOFact.getInstance();
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -41,8 +36,7 @@ public class CreateUtilisateurServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		 RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/index.jsp");
-	        request.setAttribute("page", "createLogin");
+		 RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/createLogin.jsp");  
 	        rd.forward(request, response);
 		
 	}
@@ -61,9 +55,8 @@ public class CreateUtilisateurServlet extends HttpServlet {
 		Utilisateur user = new Utilisateur(request.getParameter("pseudo"), request.getParameter("nom"),
 				request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"),
 				request.getParameter("rue"), request.getParameter("codePostal"), request.getParameter("ville"),
-				request.getParameter("motDePasse"), 0, false);
+				request.getParameter("motDepasse "), 0, false);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 		try {
 			usermanager.createUtilisateur(user);
 		} catch (BllException e) {
@@ -85,11 +78,16 @@ public class CreateUtilisateurServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.setAttribute("loginCreated", "true");
-			request.setAttribute("page", "home");
+			//request.setAttribute("page", "home");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/home.jsp");
+			rd.forward(request, response);
 		} else {
-			request.setAttribute("page", "createLogin");
+			//request.setAttribute("page", "createLogin");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/createLogin.jsp");
+			rd.forward(request, response);
 			request.setAttribute("utilisateurError", user);
 		}
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/createLogin.jsp");
 		rd.forward(request, response);
 	}
 

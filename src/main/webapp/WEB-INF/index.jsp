@@ -6,38 +6,38 @@
 
 <!DOCTYPE html>
 <html lang="fr">
-<%@include file="templates/head.jspf"%>
+<%@include file="templates/head.jsp"%>
 <body class="m-2">
   <c:if test="${page == 'login'}">
-    <%@include file="pagesWeb/login.jspf"%>
+    <%@include file="pagesWeb/login.jsp"%>
   </c:if>
   
   <c:if test="${page == 'createLogin'}">
-    <%@include file="pagesWeb/createLogin.jspf"%>
+    <%@include file="pagesWeb/createLogin.jsp"%>
   </c:if>
   
   <c:if test="${page == 'home'}">
-    <%@include file="pagesWeb/home.jspf"%>
+    <%@include file="pagesWeb/home.jsp"%>
   </c:if>
   
   <c:if test="${page == 'profile'}">
-    <%@include file="pagesWeb/profile.jspf"%>
+    <%@include file="pagesWeb/profile.jsp"%>
   </c:if>
   
   <c:if test="${page == 'updateProfile'}">
-    <%@include file="pagesWeb/updateProfile.jspf"%>
+    <%@include file="pagesWeb/updateProfile.jsp"%>
   </c:if>
   
   <c:if test="${page == 'postEnchere'}">
-    <%@include file="pagesWeb/createEnchere.jspf"%>
+    <%@include file="pagesWeb/createVente.jsp"%>
   </c:if>
   
   <c:if test="${page == 'seeEnchere'}">
-    <%@include file="pagesWeb/enchere.jspf"%>
+    <%@include file="pagesWeb/enchere.jsp"%>
   </c:if>
   
-  <c:if test="${page == 'updateEncher'}">
-    <%@include file="pagesWeb/updateEnchere.jspf"%>
+  <c:if test="${page == 'setteEncher'}">
+    <%@include file="pagesWeb/setEnchere.jsp"%>
   </c:if>
   
 </body>

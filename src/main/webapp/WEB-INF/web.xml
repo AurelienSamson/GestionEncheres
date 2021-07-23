@@ -3,41 +3,13 @@
 xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" 
 version="3.1">
-
-<!-- Config file of Enchere app.
-It instructs the servlet container(Tomcat ) 
-how to manage Authentication (FORM method)
-Here we specify: 
-	- what servlets (and filters) to use and what URLs to map them to
-	- welcome files, security constraints and error pages -->
-	
   <display-name>GestionEncheres</display-name>
-  
   <welcome-file-list>
-    <welcome-file>home</welcome-file>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-  
-  	<security-constraint>
-		<display-name>BASIC_USERS</display-name>
-		<web-resource-collection>
-			<web-resource-name>Enchere_modification</web-resource-name>
-			<description>
-                Give Access to BDD for create/update/delete and owned Enchere
-            </description>
-			<url-pattern>
-                /login/*
-            </url-pattern>
-		</web-resource-collection>
-		
-		<auth-constraint>
-			<description>
-                Users with basic permissions
-            </description>
-			<role-name>basic_user</role-name>
-		</auth-constraint>
-	</security-constraint>
-  
-  
-  
 </web-app>
